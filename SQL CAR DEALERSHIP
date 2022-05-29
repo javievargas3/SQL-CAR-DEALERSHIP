@@ -1,0 +1,67 @@
+CREATE TABLE Car (
+  car_id SERIAL PRIMARY KEY,
+  price NUMERIC (8,2),
+  color VARCHAR (100),
+  model VARCHAR (100),
+  condition_ VARCHAR(100)
+);
+
+CREATE TABLE Customer (
+  customer_id SERIAL primary KEY,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  car_id INTEGER not null,
+  foreign key(car_id) references Car(car_id)
+);
+
+CREATE TABLE Sales_person (
+  seller_id SERIAL PRIMARY KEY,
+  first_name VARCHAR (100),
+  last_name VARCHAR(100),
+  car_id INTEGER not NULL,
+  foreign key(car_id) references Car(car_id)
+);
+
+CREATE TABLE History (
+  history_id SERIAL PRIMARY KEY,
+  customer_id SERIAL,
+  service_type VARCHAR(100),
+  foreign key (customer_id) references Customer(customer_id)
+);
+
+
+CREATE TABLE Mechanic (
+  mechanic_id SERIAL,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  PRIMARY KEY (mechanic_id)
+);
+
+
+
+CREATE TABLE Part (
+  part_id SERIAL,
+  part_name VARCHAR(100),
+  PRIMARY KEY (part_id)
+);
+
+CREATE TABLE Service (
+  service_id SERIAL PRIMARY KEY,
+  customer_id INTEGER not NULL,
+  mechanic_id INTEGER not NULL,
+  part_id INTEGER not null,
+  car_id INTEGER not null,
+ foreign key (customer_id) references Customer(customer_id),
+  foreign key (mechanic_id) references Mechanic(mechanic_id),
+  foreign key(car_id) references Car(car_id),
+ foreign key(part_id) references Part(part_id)
+);
+
+CREATE TABLE Invoice (
+  invoice_id SERIAL primary KEY,
+  seller_id INTEGER not NULL,
+  customer_id INTEGER not null,
+  foreign key (customer_id) references Customer(customer_id),
+  foreign KEY(seller_id) references Sales_person(seller_id)
+);
+
