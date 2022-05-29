@@ -1,0 +1,165 @@
+select * from car 
+
+INSERT INTO Car(
+	car_id,
+	price,
+	color,
+	model,
+	condition_
+)VALUES(
+	2,
+	30.02,
+	'Blue',
+	'Civic',
+	'Used'
+);
+INSERT INTO Car(
+	car_id,
+	price,
+	color,
+	model,
+	condition_
+)VALUES(
+	3,
+	20.00,
+	'Red',
+	'Acord',
+	'New'
+);
+
+INSERT INTO Customer(
+	customer_id,
+	first_name,
+	last_name,
+	car_id
+)VALUES(
+	1,
+	'Megan',
+	'Parker',
+	2
+);
+
+INSERT INTO Customer(
+	customer_id,
+	first_name,
+	last_name,
+	car_id
+)VALUES(
+	3,
+	'Mia',
+	'Peterson',
+	2
+);
+
+
+INSERT INTO history(
+	history_id,
+	customer_id,
+	service_type
+)VALUES(
+	1,
+	1,
+	'Alternator problem'
+);
+INSERT INTO history(
+	history_id,
+	customer_id,
+	service_type
+)VALUES(
+	2,
+	3,
+	'Windshield problem'
+);
+
+INSERT INTO service(
+	service_id,
+	customer_id,
+	mechanic_id,
+	part_id,
+	car_id
+)VALUES(
+	1,
+	1,
+	1,
+	1,
+	1
+);
+INSERT INTO service(
+	service_id,
+	customer_id,
+	mechanic_id,
+	part_id,
+	car_id
+)VALUES(
+	2,
+	3,
+	2,
+	2,
+	2
+);
+
+
+INSERT INTO mechanic(
+	mechanic_id,
+	first_name,
+	last_name
+)VALUES(
+	1,
+	'Sponge',
+	'Star'
+);
+
+INSERT INTO mechanic(
+	mechanic_id,
+	first_name,
+	last_name
+)VALUES(
+	2,
+	'Seal',
+	'Moon'
+);
+
+INSERT INTO part(
+	part_id,
+	part_name
+)VALUES(
+	1,
+	'Battery'
+);
+INSERT INTO part(
+	part_id,
+	part_name
+)VALUES(
+	2,
+	'Mirrors'
+);
+
+
+create or replace function add_invoice (_invoice_id INTEGER, _seller_id INTEGER, customer_id INTEGER)
+returns void
+as $main$
+begin
+insert into invoice (invoice_id, seller_id, customer_id)
+values(_invoice_id, _seller_id, customer_id);
+	
+end;
+$main$
+language plpgsql;
+
+select add_invoice(1,1,1)
+select add_invoice(2,2,2)
+
+select * from sales_person
+
+create or replace function add_sales_person (_seller_id INTEGER,_first_name VARCHAR(100),_last_name VARCHAR(100),_car_id INTEGER )
+returns void
+as $main$
+begin
+insert into sales_person (seller_id,first_name,last_name,car_id)
+values(_seller_id,_first_name,_last_name,_car_id);
+end
+$main$
+language plpgsql;
+
+select add_sales_person(1,'james','jamesan',1)
+
